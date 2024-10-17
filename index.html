@@ -27,7 +27,7 @@
         </h1>
     </div>
 </md-toolbar>
-<div ng-app="myApp" ng-controller="myCtrl">
+<div ng-app="myApp" ng-controller="myCtrl" class="{{(dark_mode ? 'dark' : 'normal') + (default_font ? ' default' : '')}}">
     <div class="content">
         <div layout="row">
             <md-input-container flex>
@@ -258,6 +258,13 @@
         </ul>
 
         <md-divider></md-divider>
+        <br>
+        <md-checkbox ng-model="dark_mode" checkd>
+            Dark Mode
+        </md-checkbox>
+        <md-checkbox ng-model="default_font" checked>
+            Default Font
+        </md-checkbox>
         <br>
         <b>Options:</b>
         <br>
