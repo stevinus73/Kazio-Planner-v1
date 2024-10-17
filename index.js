@@ -163,10 +163,10 @@ app.controller('myCtrl', function ($scope) {
 			$scope.update_cookies();
 			return;
 		}
-		str = str.split('!END!')[0];
+		var str = str.split('!END!')[0];
 		str = Base64.decode(str);
 		str = str.split('|');
-		spl = str[2].split(';');
+		var spl = str[2].split(';');
 		$scope.seed = spl[4];
 		console.log("Seed: " + $scope.seed);
 
