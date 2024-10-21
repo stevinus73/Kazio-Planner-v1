@@ -375,6 +375,7 @@ app.controller('myCtrl', function ($scope) {
 			//if(gfdSpell.name == "Spontaneous Edifice") spellOutcome += ' (' + FortuneCookie.gamblerEdificeChecker(spellsCast + 1, false) + ')';
 		}
 
+		gamblerSpell.hover = gamblerSpell.innerCookie1 && gamblerSpell.innerCookie1.type ? gamblerSpell.innerCookie1.type + '; ' + gamblerSpell.innerCookie2.type : gamblerSpell.type
 		return gamblerSpell;
 	}
 
