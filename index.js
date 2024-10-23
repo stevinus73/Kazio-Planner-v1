@@ -318,7 +318,7 @@ app.controller('myCtrl', function ($scope) {
 		var spell = $scope.spells[spellName];
 		var out = spell.costMin;
 		if (spell.costPercent) out += $scope.max_magic * spell.costPercent;
-		out *= 1 - 0.1 * $scope.supremeintellect;
+		out *= Math.floor(1 - 0.1 * $scope.supremeintellect);
 		return out;
 	}
 
@@ -334,7 +334,7 @@ app.controller('myCtrl', function ($scope) {
 		var gfdSpell = choose(spells);
 
 		//simplifying the below cause this isn't patched yet afaict and i'll never be playing with diminished ineptitude backfire
-		var gfdBackfire = 0.5; /*M.getFailChance(gfdSpell);
+		var gfdBackfire = gfdSpell.name === "Force the Hand of Fate" ? Math.max(0.5, $scope.backfireChance) : 0.5; /*M.getFailChance(gfdSpell);
     
 		if(FortuneCookie.detectKUGamblerPatch()) gfdBackfire *= 2;
 		else gfdBackfire = Math.max(gfdBackfire, 0.5);*/

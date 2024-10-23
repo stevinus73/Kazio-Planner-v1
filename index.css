@@ -36,8 +36,13 @@ body,
 }
 
 .md-avatar {
-    image-rendering: pixelated;
     border-radius: 2px !important;
+}
+
+.md-pixelated {
+    image-rendering: pixelated;
+    width: 48px !important;
+    height: 48px !important;
 }
 
 body>div {

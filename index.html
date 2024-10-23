@@ -92,7 +92,8 @@
 				<li><a href="https://plasma4.github.io/FtHoF-Planner-v6/">FtHoF planner v6</a> by
                     <a href="https://discord.gg/cookie">@1_e0</a> (discord)
                     <ul>
-                        <li>This version introduces the option to directly import a seed, more info on Gambler's Fever Dream offset abuse, particularly for Gambler's Fever Dream casts that return FtHoF by hovering over a particular FtHoF GFD cell, and some UI changes. You can also view a short description of what a golden or wrath cookie does by hovering over that cell.</li>
+                        <li>This version introduces the option to directly import a seed, more info on Gambler's Fever Dream offset abuse, particularly for Gambler's Fever Dream casts that return FtHoF by hovering over a particular FtHoF GFD cell, and some more UI options. You can also view a short description of what a golden or wrath cookie does by hovering over that cell. Some other things that have not been added yet are planned, such as a combo finder (simulates theoretical combos through brute-force, with gfd consideration, but with customizable combo options)
+                        </li>
                     </ul>
                 </li>
 
@@ -421,7 +422,7 @@
                     <md-list flex>
                         <md-subheader class="md-no-sticky">The outcome of Gambler's Fever Dream.</md-subheader>
                         <md-list-item class="md-2-line" ng-init="hoverText = cookie_list[2].type" ng-mouseover="hoverText = cookie_list[2].hover" ng-click="hoverText = cookie_list[2].hover" ng-mouseleave="hoverText = cookie_list[2] ? cookie_list[2].type : 'Blank'" ng-repeat="cookie_list in displayCookies" ng-click="null">
-                            <img ng-src='{{cookie_list[2].icon}}' class="md-avatar" alt="Golden Cookie"/>
+                            <img ng-src='{{cookie_list[2].icon}}' class="md-avatar md-pixelated" alt="Golden Cookie"/>
                             <div class="md-list-item-text{{(cookie_list[2].hasBs || cookie_list[2].hasEf) ? ' highlightCombo' : cookie_list[2].type == 'Resurrect Abomination' || (cookie_list[2].type == 'Spontaneous Edifice' && !cookie_list[2].backfire) ? ' highlightSkip' : ''}}" layout="column">
                                 <h3>{{hoverText}}</h3>
                             </div>
