@@ -407,8 +407,8 @@ app.controller('myCtrl', function ($scope) {
 			if (cookie.type == 'Lucky') cookie.description = "Gain 13 cookies, plus the lesser of 15% of bank or 15 minutes of production.";
 			if (cookie.type == 'Click Frenzy') cookie.description = "Gives x777 cookies per click for 13 seconds.";
 			if (cookie.type == 'Blab') cookie.description = "Does nothing but contains a funny message.";
-			if (cookie.type == 'Cookie Storm') cookie.description = "A massive amount of Golden Cookies appears for 7 seconds, each granting you 1 to 7 minutes worth of cookies.";
-			if (cookie.type == 'Cookie Storm Drop') cookie.description = "Golden cookies fill the screen, giving to 1-7 minutes of production.";
+			if (cookie.type == 'Cookie Storm') cookie.description = "Golden cookies fill the screen, each granting you 1 to 7 minutes worth of cookies.";
+			if (cookie.type == 'Cookie Storm Drop') cookie.description = "Grants 1 to 7 minutes worth of production.";
 			if (cookie.type == 'Building Special') {
 				cookie.description = "Get a variable bonus to cookie production for 30 seconds.";
 				cookie.noteworthy = true;
