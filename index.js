@@ -158,8 +158,7 @@ app.controller('myCtrl', function ($scope) {
 		if (str.length === 5) {
 			$scope.seed = str;
 			$scope.spellsCastTotal = Number(prompt("Total spells cast?"));
-			$scope.spellsCastThisAscension = Number(prompt("Spells cast this ascension?"));
-			$scope.ascensionMode = Number(prompt("Are you on the ascend screen? 0 if no, 1 if yes"));
+			$scope.spellsCastThisAscension = $scope.spellsCastTotal;
 			$scope.update_cookies();
 			return;
 		}
