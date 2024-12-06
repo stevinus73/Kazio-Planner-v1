@@ -383,7 +383,7 @@ app.controller('myCtrl', function ($scope) {
 		var roll = Math.random()
 		if (forcedGold !== false && (forcedGold || roll < (1 - (0.15 * $scope.on_screen_cookies + 0.15 * (1 + 0.1 * $scope.supremeintellect) * (1 - 0.9 * $scope.diminishineptitude))))) {
 			/* Random is called a few times in setting up the golden cookie */
-			if (chime == 1 && $scope.ascensionMode != 1) Math.random();
+			if (chime == 1) Math.random();
 			if (season == 'valentines' || season == 'easter') {
 				Math.random();
 			}
@@ -416,7 +416,7 @@ app.controller('myCtrl', function ($scope) {
 			return cookie;
 		} else {
 			/* Random is called a few times in setting up the golden cookie */
-			if (chime == 1 && $scope.ascensionMode != 1) Math.random();
+			if (chime == 1) Math.random();
 			if (season == 'valentines' || season == 'easter') {
 				Math.random();
 			}
