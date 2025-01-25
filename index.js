@@ -661,4 +661,5 @@ app.controller('myCtrl', function ($scope) {
 			fail: function () {},
 		},
 	};
+console.log($scope.spells);
 });
