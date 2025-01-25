@@ -73,6 +73,12 @@ app.controller('myCtrl', function ($scope) {
 	$scope.magic = 999
 	$scope.max_magic = 999
 	$scope.config = ""
+
+	$scope.firstAscension = 1
+	$scope.gcBuffs = 0
+	$scope.combo1Status = 0
+	$scope.combo4Status = 0
+	$scope.dualcast = 0
 	// Preset decent strategies; TODO
 	// $scope.possibleStrats = [null, "522fthof 52di/F 22fthof R+522fthof 22fthof\r\n522fthof 52F/hc 22fthof R+522di/hc 322fthof 22fthof", "547fthof 47di/F 27fthof R+547 47\r\n547fthof 47F/hc 27fthof, 547di/hc, 347fthof, 27fthof\r\n547fthof, 47di/F, 27fthof, R+517st, 317fthof, 17fthof\r\n547fthof, 47F/gfd, R+547di/hc, 327fthof, 27fthof"]
 
@@ -269,6 +275,15 @@ app.controller('myCtrl', function ($scope) {
 		}
 	}
 
+	$scope.kazio_cf_chance = function() {
+		if ($scope.firstAscension){return 0.25*Math.pow(0.6,$scope.gcBuffs);}
+		let chance = 0.75;
+		if ($scope.combo1Status) {chance+=0.15;}
+		if ($scope.combo4Status) {chance+=0.1;}
+		if ($scope.dualcast) {chance+=2;}
+		return chance*Math.pow(0.6,$scope.gcBuffs);
+	}
+
 	//want to return shortest, and first sequence for a given combo_length
 	//if nothing that satisfies max_spread, shortest will still be filled but first will be empty
 	function findCombos(combo_length, max_spread, bsIndices, skipIndices) {
@@ -393,9 +408,9 @@ app.controller('myCtrl', function ($scope) {
 
 			var choices = [];
 			choices.push('Frenzy', 'Lucky');
-			if (!$scope.dragonflight) choices.push('Click Frenzy');
 			if (Math.random() < 0.1) choices.push('Cookie Storm', 'Cookie Storm', 'Blab');
 			if (Math.random() < 0.25) choices.push('Building Special');
+			if (Math.random() < $scope.kazio_cf_chance()) choices.push('Click Frenzy');
 			if (Math.random() < 0.15) choices = ['Cookie Storm Drop'];
 			if (Math.random() < 0.0001) choices.push('Free Sugar Lump');
 			var cookie = {}
@@ -426,7 +441,7 @@ app.controller('myCtrl', function ($scope) {
 
 			var choices = [];
 			choices.push('Clot', 'Ruin');
-			if (Math.random() < 0.1) choices.push('Cursed Finger', 'Elder Frenzy');
+			if (Math.random() < 0.1) choices.push('Cursed Finger');
 			if (Math.random() < 0.003) choices.push('Free Sugar Lump');
 			if (Math.random() < 0.1) choices = ['Blab'];
 			var cookie = {}
@@ -438,7 +453,7 @@ app.controller('myCtrl', function ($scope) {
 			if (cookie.type == 'Cursed Finger') cookie.description = "Cookie production halted for 10 seconds, but each click is worth 10 seconds of production.";
 			if (cookie.type == 'Blab') cookie.description = "Does nothing but has a funny message.";
 			if (cookie.type == 'Elder Frenzy') {
-				cookie.description = "Gives x666 cookie production for 6 seconds.";
+				cookie.description = "Gives x666 cookie production for 6 seconds... BUT YOU WILL NEVER GET IT! MWAHAHAHAHA!!!";
 				cookie.noteworthy = true;
 			}
 			if (cookie.type == 'Free Sugar Lump') cookie.description = "Gives you a free sugar lump.";
