@@ -466,25 +466,13 @@ app.controller('myCtrl', function ($scope) {
 	$scope.spells = {
 		'conjure baked goods': {
 			name: 'Conjure Baked Goods',
-			desc: 'Summon half an hour worth of your CpS, capped at 15% of your cookies owned.',
-			failDesc: 'Trigger a 15-minute clot and lose 15 minutes of CpS.',
+			desc: '+75% prestige level effect for 1 minute.',
+			failDesc: "Trigger a 1-minute coagulation and lose 50% of your cookies owned.",
 			icon: [21, 11],
 			costMin: 2,
 			costPercent: 0.4,
-			win: function () {
-				var val = Math.max(7, Math.min(Game.cookies * 0.15, Game.cookiesPs * 60 * 30));
-				Game.Earn(val);
-				Game.Notify('Conjure baked goods!', 'You magic <b>' + Beautify(val) + ' cookie' + (val == 1 ? '' : 's') + '</b> out of thin air.', [21, 11], 6);
-				Game.Popup('<div style="font-size:80%;">+' + Beautify(val) + ' cookie' + (val == 1 ? '' : 's') + '!</div>', Game.mouseX, Game.mouseY);
-			},
-			fail: function () {
-				var buff = Game.gainBuff('clot', 60 * 15, 0.5);
-				var val = Math.min(Game.cookies * 0.15, Game.cookiesPs * 60 * 15) + 13;
-				val = Math.min(Game.cookies, val);
-				Game.Spend(val);
-				Game.Notify(buff.name, buff.desc, buff.icon, 6);
-				Game.Popup('<div style="font-size:80%;">Backfire!<br>Summoning failed! Lost ' + Beautify(val) + ' cookie' + (val == 1 ? '' : 's') + '!</div>', Game.mouseX, Game.mouseY);
-			},
+			win: function () {},
+			fail: function () {},
 		},
 		'hand of fate': {
 			name: 'Force the Hand of Fate',
@@ -563,79 +551,33 @@ app.controller('myCtrl', function ($scope) {
 		},
 		'spontaneous edifice': {
 			name: 'Spontaneous Edifice',
-			desc: 'The spell picks a random building you could afford if you had twice your current cookies, and gives it to you for free. The building selected must be under 400, and cannot be your most-built one (unless it is your only one).',
-			failDesc: 'Lose a random building.',
+			desc: "The spell picks a random building that you have at least 1 of, and gives you one for free that also doesn't affect its current price.<br>Can give up to 20 free buildings for each building type."
+			failDesc: "Lose one of every building.",
 			icon: [24, 11],
 			costMin: 20,
 			costPercent: 0.75,
-			win: function () {
-				var buildings = [];
-				var max = 0;
-				var n = 0;
-				for (var i in Game.Objects) {
-					if (Game.Objects[i].amount > max) max = Game.Objects[i].amount;
-					if (Game.Objects[i].amount > 0) n++;
-				}
-				for (var i in Game.Objects) {
-					if ((Game.Objects[i].amount < max || n == 1) && Game.Objects[i].getPrice() <= Game.cookies * 2 && Game.Objects[i].amount < 400) buildings.push(Game.Objects[i]);
-				}
-				if (buildings.length == 0) {
-					Game.Popup('<div style="font-size:80%;">No buildings to improve!</div>', Game.mouseX, Game.mouseY);
-					return -1;
-				}
-				var building = choose(buildings);
-				building.buyFree(1);
-				Game.Popup('<div style="font-size:80%;">A new ' + building.single + '<br>bursts out of the ground.</div>', Game.mouseX, Game.mouseY);
-			},
-			fail: function () {
-				if (Game.BuildingsOwned == 0) {
-					Game.Popup('<div style="font-size:80%;">Backfired, but no buildings to destroy!</div>', Game.mouseX, Game.mouseY);
-					return -1;
-				}
-				var buildings = [];
-				for (var i in Game.Objects) {
-					if (Game.Objects[i].amount > 0) buildings.push(Game.Objects[i]);
-				}
-				var building = choose(buildings);
-				building.sacrifice(1);
-				Game.Popup('<div style="font-size:80%;">Backfire!<br>One of your ' + building.plural + '<br>disappears in a puff of smoke.</div>', Game.mouseX, Game.mouseY);
-			},
+			win: function () {},
+			fail: function () {},
 		},
 		'haggler\'s charm': {
 			name: 'Haggler\'s Charm',
-			desc: 'Upgrades are 2% cheaper for 1 minute.',
-			failDesc: 'Upgrades are 2% more expensive for an hour.<q>What\'s that spell? Loadsamoney!</q>',
+			desc: "Summons a power orb if there aren't any currently present, and continuously attracts every present power orb to your mouse for the next 20 seconds.",
+			failDesc: "Continuously heals and speeds up every present power orb for the next 30 seconds.",
 			icon: [25, 11],
-			costMin: 10,
-			costPercent: 0.1,
-			win: function () {
-				Game.killBuff('Haggler\'s misery');
-				var buff = Game.gainBuff('haggler luck', 60, 2);
-				Game.Popup('<div style="font-size:80%;">Upgrades are cheaper!</div>', Game.mouseX, Game.mouseY);
-			},
-			fail: function () {
-				Game.killBuff('Haggler\'s luck');
-				var buff = Game.gainBuff('haggler misery', 60 * 60, 2);
-				Game.Popup('<div style="font-size:80%;">Backfire!<br>Upgrades are pricier!</div>', Game.mouseX, Game.mouseY);
-			},
+			costMin: 15,
+			costPercent: 0.15,
+			win: function () {},
+			fail: function () {},
 		},
 		'summon crafty pixies': {
 			name: 'Summon Crafty Pixies',
-			desc: 'Buildings are 2% cheaper for 1 minute.',
-			failDesc: 'Buildings are 2% more expensive for an hour.',
+			desc: "Summons a crafty pixie to predict good luck on your next cast, then refunds all magic used. Will guarantee success as long as the next cast casts a spell with the same backfire chance as this one, and that the next spell is casted in the same ascension.<br>A successful prediction cannot be changed without casting another spell or ascending.",
+			failDesc: 'Uses up the magic spent without predicting anything.',
 			icon: [26, 11],
-			costMin: 10,
-			costPercent: 0.2,
-			win: function () {
-				Game.killBuff('Nasty goblins');
-				var buff = Game.gainBuff('pixie luck', 60, 2);
-				Game.Popup('<div style="font-size:80%;">Crafty pixies!<br>Buildings are cheaper!</div>', Game.mouseX, Game.mouseY);
-			},
-			fail: function () {
-				Game.killBuff('Crafty pixies');
-				var buff = Game.gainBuff('pixie misery', 60 * 60, 2);
-				Game.Popup('<div style="font-size:80%;">Backfire!<br>Nasty goblins!<br>Buildings are pricier!</div>', Game.mouseX, Game.mouseY);
-			},
+			costMin: 15,
+			costPercent: 0.05,
+			win: function () {},
+			fail: function () {},
 		},
 		'gambler\'s fever dream': {
 			name: 'Gambler\'s Fever Dream',
@@ -671,28 +613,14 @@ app.controller('myCtrl', function ($scope) {
 			},
 		},
 		'resurrect abomination': {
-			name: 'Resurrect Abomination',
-			desc: 'Instantly summon a wrinkler if conditions are fulfilled.',
-			failDesc: 'Pop one of your wrinklers.',
+			name: 'Holify Abomination',
+			desc: "Obliterate the most powerful wrinkler without any negative effects or losing any cookies, and automatically stores its soul if possible.",
+			failDesc: 'Summons a shiny wrinkler.',
 			icon: [28, 11],
-			costMin: 20,
-			costPercent: 0.1,
-			win: function () {
-				var out = Game.SpawnWrinkler();
-				if (!out) {
-					Game.Popup('<div style="font-size:80%;">Unable to spawn a wrinkler!</div>', Game.mouseX, Game.mouseY);
-					return -1;
-				}
-				Game.Popup('<div style="font-size:80%;">Rise, my precious!</div>', Game.mouseX, Game.mouseY);
-			},
-			fail: function () {
-				var out = Game.PopRandomWrinkler();
-				if (!out) {
-					Game.Popup('<div style="font-size:80%;">Backfire!<br>But no wrinkler was harmed.</div>', Game.mouseX, Game.mouseY);
-					return -1;
-				}
-				Game.Popup('<div style="font-size:80%;">Backfire!<br>So long, ugly...</div>', Game.mouseX, Game.mouseY);
-			},
+			costMin: 6,
+			costPercent: 0.06,
+			win: function () {},
+			fail: function () {},
 		},
 		'diminish ineptitude': {
 			name: 'Diminish Ineptitude',
@@ -711,6 +639,26 @@ app.controller('myCtrl', function ($scope) {
 				var buff = Game.gainBuff('magic inept', 10 * 60, 5);
 				Game.Popup('<div style="font-size:80%;">Backfire!<br>Ineptitude magnified!</div>', Game.mouseX, Game.mouseY);
 			},
+		},
+		'liquify politician': {
+			name: 'Liquify politician',
+			desc: "Purifies a lot of decay with a very high purity limit, but the purity limit is halved for every golden cookie effect active.",
+			failDesc: "Amplifies your decay.",
+			icon: [5, 0],
+			costMin: 6,
+			costPercent: 0.45,
+			win: function () {},
+			fail: function () {},
+		},
+		'manifest spring': {
+			name: 'Manifest spring',
+			desc: "Halts decay for an especially long time. (each use is considered a distinct method)",
+			failDesc: "Decay propagation is 50% faster for the next 2 minutes.",
+			icon: [6, 0],
+			costMin: 18,
+			costPercent: 0.25,
+			win: function () {},
+			fail: function () {},
 		},
 	};
 });
