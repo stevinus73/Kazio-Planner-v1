@@ -79,6 +79,8 @@ app.controller('myCtrl', function ($scope) {
 	$scope.combo1Status = 0
 	$scope.combo4Status = 0
 	$scope.dualcast = 0
+	$scope.allBuffStackR = 0
+	$scope.awiy = 0
 	// Preset decent strategies; TODO
 	// $scope.possibleStrats = [null, "522fthof 52di/F 22fthof R+522fthof 22fthof\r\n522fthof 52F/hc 22fthof R+522di/hc 322fthof 22fthof", "547fthof 47di/F 27fthof R+547 47\r\n547fthof 47F/hc 27fthof, 547di/hc, 347fthof, 27fthof\r\n547fthof, 47di/F, 27fthof, R+517st, 317fthof, 17fthof\r\n547fthof, 47F/gfd, R+547di/hc, 327fthof, 27fthof"]
 
@@ -276,10 +278,11 @@ app.controller('myCtrl', function ($scope) {
 	}
 
 	$scope.kazio_cf_chance = function() {
-		if ($scope.firstAscension){return 0.25*Math.pow(0.6,$scope.gcBuffs);}
+		if ($scope.firstAscension) {return 0.25*Math.pow(0.6,$scope.gcBuffs);}
 		let chance = 0.75;
-		if ($scope.combo1Status) {chance+=0.15;}
+		if ($scope.combo1Status) {chance+=($scope.awiy?0.3:0.15);}
 		if ($scope.combo4Status) {chance+=0.1;}
+		chance+=$scope.allBuffStackR*0.02;
 		if ($scope.dualcast) {chance+=2;}
 		return chance*Math.pow(0.6,$scope.gcBuffs);
 	}
