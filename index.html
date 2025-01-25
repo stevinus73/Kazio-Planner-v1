@@ -143,18 +143,13 @@
 
                 <li>
                     <b>Combo search: Once you import a save file, the planner will display both the earliest and
-                        shortest versions of combos. Combos are combinations of Building Specials (BS) (and optionally
-                        Elder Frenzies (EF)) that are close together:</b>
+                        shortest versions of combos. Combos are combinations of Building Specials (BS) 
+                        that are close together:</b>
                     <ul>
                         <li>Min combo is the smallest combo to search for; Max is the largest.</li>
                         <li>Spread is how much leeway to include in the combo search. For example, if you want a 3x
                             combo and are ok with a sequence of [BS, non-BS, BS, BS], that would be a combo size of 3
                             with a spread of 1, for a total length of 4.
-                        </li>
-                        <li>Include Elder Frenzies is asking whether to count EF spawns from FtHoF in your combos. For
-                            most people these are just as good, if not better than Building Specials, so they're
-                            included by default. But in some cases you may not want EF via FtHoF, so I have an option to
-                            exclude it.
                         </li>
                         <li>For Skip Abominations and Skip Spontaneous Edifices, see below for more explanation, but
                             these options are just asking whether to factor in skippable rows when searching for combos.
@@ -167,7 +162,7 @@
                 <li>
                     <b>Gambler's fever dream: Added a column for this, as it's critical to getting combos:</b>
                     <ul>
-                        <li>More chances for Building Special or Elder Frenzy via Gambler's -> FtHoF. Plus these casts
+                        <li>More chances for Building Special via Gambler's -> FtHoF. Plus these casts
                             end up costing significantly less mana, which can help with more spread-out combos. Hover
                             over the cookie when it's FtHoF to see what the cookie might contain
                         </li>
@@ -186,7 +181,7 @@
                 <li>Spell counter column (the one on the left) now includes indices for both your spells casts this
                     ascension, and total spells cast
                 </li>
-                <li>Building Specials and Elder Frenzies are highlighted yellow</li>
+                <li>Building Specials are highlighted yellow</li>
                 <li>Rows skippable via Gambler's have their Gambler's spell highlighted blue.</li>
 
                 <pre>Mylaaan</pre>
@@ -284,11 +279,7 @@
         <md-divider></md-divider>
         <br>
         <md-checkbox ng-checked=true ng-model="include_ef_in_sequence" aria-label="Include Elder Frenzy">
-            Include Elder Frenzies
-        </md-checkbox>
-
-        <md-checkbox ng-checked=true ng-model="skip_abominations" aria-label="Allow Abomination Skips">
-            Skip Abominations
+            Include Elder Frenzies (useless option FYI)
         </md-checkbox>
 
         <md-checkbox ng-checked=true ng-model="skip_edifices" aria-label="Allow Spontaneous Edifice Skips">

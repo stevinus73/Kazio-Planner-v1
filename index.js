@@ -225,7 +225,7 @@ app.controller('myCtrl', function ($scope) {
 				bsIndices.push(i);
 			}
 
-			if (($scope.skip_abominations && gambler.type == 'Resurrect Abomination') || ($scope.skip_edifices && gambler.type == 'Spontaneous Edifice' && !gambler.backfire)) {
+			if (($scope.skip_edifices && gambler.type == 'Spontaneous Edifice' && !gambler.backfire)) {
 				skipIndices.push(i);
 			}
 
