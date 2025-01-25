@@ -410,7 +410,7 @@ app.controller('myCtrl', function ($scope) {
 			choices.push('Frenzy', 'Lucky');
 			if (Math.random() < 0.1) choices.push('Cookie Storm', 'Cookie Storm', 'Blab');
 			if (Math.random() < 0.25) choices.push('Building Special');
-			if (Math.random() < $scope.kazio_cf_chance()) choices.push('Click Frenzy');
+			if (Math.random() < $scope.kazio_cf_chance()) choices=['Click Frenzy'];
 			if (Math.random() < 0.15) choices = ['Cookie Storm Drop'];
 			if (Math.random() < 0.0001) choices.push('Free Sugar Lump');
 			var cookie = {}
