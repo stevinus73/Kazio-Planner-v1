@@ -74,7 +74,7 @@ app.controller('myCtrl', function ($scope) {
 	$scope.max_magic = 999
 	$scope.config = ""
 
-	$scope.firstAscension = 1
+	$scope.firstAscension = 0
 	$scope.gcBuffs = 0
 	$scope.combo1Status = 0
 	$scope.combo4Status = 0
