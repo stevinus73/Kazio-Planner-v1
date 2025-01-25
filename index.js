@@ -551,7 +551,7 @@ app.controller('myCtrl', function ($scope) {
 		},
 		'spontaneous edifice': {
 			name: 'Spontaneous Edifice',
-			desc: "The spell picks a random building that you have at least 1 of, and gives you one for free that also doesn't affect its current price.<br>Can give up to 20 free buildings for each building type."
+			desc: "The spell picks a random building that you have at least 1 of, and gives you one for free that also doesn't affect its current price.<br>Can give up to 20 free buildings for each building type.",
 			failDesc: "Lose one of every building.",
 			icon: [24, 11],
 			costMin: 20,
