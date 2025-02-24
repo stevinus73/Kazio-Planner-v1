@@ -279,11 +279,11 @@ app.controller('myCtrl', function ($scope) {
 
 	$scope.kazio_cf_chance = function() {
 		if ($scope.firstAscension) {return 0.25*Math.pow(0.6,$scope.gcBuffs);}
-		let chance = 0.75;
-		if ($scope.combo1Status) {chance+=($scope.awiy?0.3:0.15);}
+		let chance = 1;
+		if ($scope.combo1Status) {chance+=($scope.awiy?0.5:0.25);}
 		if ($scope.combo4Status) {chance+=0.1;}
 		chance+=$scope.allBuffStackR*0.02;
-		if ($scope.dualcast) {chance+=2;}
+		if ($scope.dualcast) {chance+=3;}
 		return chance*Math.pow(0.6,$scope.gcBuffs);
 	}
 
